@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "ListVegetables": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "DOTNET_STARTUP_HOOKS": "D:\\projets\\StartupHookSample\\StartupHook\\bin\\Debug\\netstandard2.0\\StartupHookPJ.dll"
+      }
+    }
+  }
+}
