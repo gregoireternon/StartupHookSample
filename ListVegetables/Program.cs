@@ -18,7 +18,7 @@ namespace ListVegetables
                 Console.WriteLine($"{vege.GetName()} is a vegetable");
             }
 
-            Console.ReadLine();
+            //Console.ReadLine();
         }
     }
 }
