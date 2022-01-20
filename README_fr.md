@@ -1,13 +1,18 @@
 # Injection de code au runtime dans un projet dotnet core
 
 ## Intro
-Java is the first "object oriented" language I have learned; From 2015, I work mainly on dotnet projects; Java is regularly considered as an old dying language; But I constantly keep in mind things that are usual in this language, but are not possible in other languages.
-In particular, in this article: Java enables people to inject dependencies at runtime, for example using CLASSPATH; 
-The most well-known example is the usage of JDBC drivers: you can build a project planning to use database persistence, without having to choose at building time which Database (Oracle, Sybase, SQL Server, ...) you will use at runtime: Convenient JDBC driver will be provider by environment. This is really powerful because you can adapt your program's behavior regarding its hosting platform without having to modify it.
-
+Javaiste confirmé, je travaille principalement sur des projets dotnet depuis 2015; Java est régulièrement considéré comme un vieux langage vieillissant, mais cet ecosystème gère pourtant un nombre considérable de fonctionalités qui ne sont pas prises en charge par ses "concurrents habituels".
+En particulier, cela fait très longtemps que **Java permet l'injection de code au runtime**; pour concrétiser cela, il suffit de rajouter le code requis dans le CLASSPATH de l'application.
+L'exemple typique de cette possibilité est l'usage d'un driver JDBC qui implémente une interface référencée dans le projet, mais qui n'est pas embarqué dans le package applicatif, mais fourni par le contexte d'exécution. Cela permet, dans ce cas, de ne pas se soucier du type de base de donnée sur lequel s'exécutera l'application, donc **réduire le couplage**
+C'est particulièrement puissant car cela permet d'adapter le comportement d'un programme à son environnement d'exécution, sans avoir à le modifier.
 ![Component on different platforms](runtime-inj-01.png)
 
-Such a thing was not possible in .NET Framework: all dependencies had to be "linked" inside your solution, when you built it. Consequently, you had to prepare a package by target platform, as soon as behavior had to be different.
-Obviously, workaround are possible using configuration, and strategy patterns, but in that case, you had to embed all your strategies inside your package to just enable an option, or another...
+Une telle chose n'était pas possible en .NET Framework (à moins de permettre explicitement et programmatiquement au propgramme de charger une assembly externe.... avec tout ce que cela implique en terme de qualité de code, robustesse, ...): toutes les dépendances devaient être linkées dans la solution, lors du build; Vous aviez donc à préparer un package par plateforme cible, dès que le comportement devait être différent.
+Bien sur, des conteournements existent, tels que l'usage de stratégies (pattern), mais dans ce cas, vous aviez à embarquer toutes les stratégies dans le même package.
 
-This is not mandatory anymore in dotnet core; whith this new framework, which has a lot of similarities with JVM, it is possible from now on to inject libraries at runtime, which means you can include them WITHOUT link them in your project.
+Microsoft rattrape bien son retard grace à la famille dotnet core (dotnet 5, 6, ...): avec ce nouveau framework, dont le runtime présente de nombreuses similitudes avec la JVM, il est maintenant possible d'injecter des librairies au runtime;
+Cela peut se faire au moins de 2 manières différentes:
+- Grace au [runtime store](https://docs.microsoft.com/fr-fr/dotnet/core/deploying/runtime-store); sa manipulation est toutefois hasardeuse
+- Grace au [Startup hook](https://github.com/dotnet/runtime/blob/main/docs/design/features/host-startup-hook.md)
+
+
