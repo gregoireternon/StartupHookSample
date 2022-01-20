@@ -14,6 +14,25 @@ Microsoft rattrape bien son retard grace à la famille dotnet core (dotnet 5, 6,
 Cela peut se faire au moins de 2 manières différentes:
 - Grace au [runtime store](https://docs.microsoft.com/fr-fr/dotnet/core/deploying/runtime-store); sa manipulation est toutefois hasardeuse
 - Grace au [Startup hook](https://github.com/dotnet/runtime/blob/main/docs/design/features/host-startup-hook.md)
+
+
 Note: Vous pourez voir ce qui m'a conduit à privilégier le startup hook au runtime store [ici](https://github.com/dotnet/runtime/issues/61103)
 
+## Comment utiliser ce projet
+Just launch Launch.ps1 pour lancer le build ET l'exécution du programme.
+Le programme contient:
+- Une lib qui contient une interface partagée (IVegetable)
+- Un projet dll StartupHookPJ: il s'agit d'une dll qui contient le code pour s'exécuter en startup hook (classe StartupHook), ainsi que des implémentations aditionnelles de IVegetable
+- Un projet dont l'unique but est de lister les IVegetable qui sont dans son assembly (et qui ne contient que Turnip - Navet); notez bien que ce projet **ne référence pas** StartupHookPJ
 
+L'execution retourne un truc du genre:
+```
+CommonLib Startup hook init
+CommonLib Startup hook init
+This project's goal is to list all available vegetables
+turnip is a vegetable
+cauliflower is a vegetable
+Cucumber is a vegetable
+leek is a vegetable
+```
+Comme vous pouvez le voir, l'itération renvoi des éléments qui ne sont pas dans le projet, mais injectés dans le programme du fait de la présence de la référence de la dll du startup hook dans la variable d'environnement DOTNET_STARTUP_HOOKS.
