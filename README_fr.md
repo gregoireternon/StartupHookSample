@@ -14,5 +14,6 @@ Microsoft rattrape bien son retard grace à la famille dotnet core (dotnet 5, 6,
 Cela peut se faire au moins de 2 manières différentes:
 - Grace au [runtime store](https://docs.microsoft.com/fr-fr/dotnet/core/deploying/runtime-store); sa manipulation est toutefois hasardeuse
 - Grace au [Startup hook](https://github.com/dotnet/runtime/blob/main/docs/design/features/host-startup-hook.md)
+Note: Vous pourez voir ce qui m'a conduit à privilégier le startup hook au runtime store [ici](https://github.com/dotnet/runtime/issues/61103)
 
 
