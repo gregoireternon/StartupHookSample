@@ -1,5 +1,5 @@
 # Code injection at runtime in a dotnet core project
-
+[Version Française](README_fr.md)
 ## Intro
 Java is the first "object oriented" language I have learned; From 2015, I work mainly on dotnet projects; Java is regularly considered as an old dying language; But I constantly keep in mind things that are usual in this language, but are not possible in other languages.
 In particular, in this article: Java enables people to inject dependencies at runtime, for example using CLASSPATH; 
