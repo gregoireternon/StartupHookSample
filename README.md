@@ -37,3 +37,6 @@ Cucumber is a vegetable
 leek is a vegetable
 ```
 As you can see, iteration list all IVegetables, not only Turnip; it list also IVegetable that are in StartupHookPJ, because its dll is referenced in DOTNET_STARTUP_HOOKS env variable.
+
+## Prerequisite
+dotnet 5 runtime (should work with former dotnet core framework)
